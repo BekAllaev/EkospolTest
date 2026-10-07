@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/EkospolTest.Backend/EkospolTest.Backend.csproj" />
+    <Project Path="src/EkospolTest.Frontend/EkospolTest.Frontend.esproj">
+      <Build />
+      <Deploy />
+    </Project>
+  </Folder>
+</Solution>
