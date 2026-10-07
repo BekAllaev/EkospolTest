@@ -7,5 +7,7 @@ namespace EkospolTest.Backend.Models
         public string Number { get; set; } = string.Empty;
 
         public bool IsPublic { get; set; }
+
+        public int OwnerId { get; set; }
     }
 }
