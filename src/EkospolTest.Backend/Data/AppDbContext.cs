@@ -31,6 +31,10 @@ namespace EkospolTest.Backend.Data
                 entity.Property(p => p.IsPublic)
                     .HasColumnName("is_public")
                     .IsRequired();
+
+                entity.Property(p => p.OwnerId)
+                    .HasColumnName("owner_id")
+                    .IsRequired();
             });
         }
     }
