@@ -40,6 +40,10 @@ namespace EkospolTest.Backend.Migrations
                         .HasColumnType("character varying(32)")
                         .HasColumnName("phone_number");
 
+                    b.Property<int>("OwnerId")
+                        .HasColumnType("integer")
+                        .HasColumnName("owner_id");
+
                     b.HasKey("Id");
 
                     b.ToTable("phone_numbers", (string)null);

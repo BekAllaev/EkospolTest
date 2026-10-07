@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EkospolTest.Backend.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20261007144413_InitialCreate")]
+    [Migration("20261007150854_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -42,6 +42,10 @@ namespace EkospolTest.Backend.Migrations
                         .HasMaxLength(32)
                         .HasColumnType("character varying(32)")
                         .HasColumnName("phone_number");
+
+                    b.Property<int>("OwnerId")
+                        .HasColumnType("integer")
+                        .HasColumnName("owner_id");
 
                     b.HasKey("Id");
 

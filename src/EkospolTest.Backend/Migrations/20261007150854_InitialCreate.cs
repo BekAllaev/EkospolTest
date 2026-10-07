@@ -18,7 +18,8 @@ namespace EkospolTest.Backend.Migrations
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     phone_number = table.Column<string>(type: "character varying(32)", maxLength: 32, nullable: false),
-                    is_public = table.Column<bool>(type: "boolean", nullable: false)
+                    is_public = table.Column<bool>(type: "boolean", nullable: false),
+                    owner_id = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
