@@ -4,3 +4,19 @@ GET {{EkospolTest.Backend_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
+
+GET {{EkospolTest.Backend_HostAddress}}/api/phone-numbers
+Accept: application/json
+
+###
+
+POST {{EkospolTest.Backend_HostAddress}}/api/phone-numbers
+Content-Type: application/json
+
+{
+  "number": "+420 123 456 789",
+  "isPublic": true,
+  "ownerId": 1
+}
+
+###
