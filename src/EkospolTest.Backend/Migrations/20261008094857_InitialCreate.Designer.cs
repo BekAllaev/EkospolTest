@@ -11,8 +11,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EkospolTest.Backend.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20261008120000_ChangeOwnerIdToString")]
-    partial class ChangeOwnerIdToString
+    [Migration("20261008094857_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
