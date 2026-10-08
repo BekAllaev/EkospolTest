@@ -1,12 +1,14 @@
 using EkospolTest.Backend.Data;
 using EkospolTest.Backend.Dtos;
 using EkospolTest.Backend.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace EkospolTest.Backend.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("api/phone-numbers")]
     public class PhoneNumbersController : ControllerBase
     {

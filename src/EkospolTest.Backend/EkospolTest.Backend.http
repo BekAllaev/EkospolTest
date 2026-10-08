@@ -1,4 +1,13 @@
 @EkospolTest.Backend_HostAddress = http://localhost:5274
+@Keycloak_TokenUrl = http://localhost:8080/realms/ekospol/protocol/openid-connect/token
+
+# @name login
+POST {{Keycloak_TokenUrl}}
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=password&client_id=ekospol-frontend&username=testuser&password=testuser
+
+###
 
 GET {{EkospolTest.Backend_HostAddress}}/weatherforecast/
 Accept: application/json
@@ -7,11 +16,13 @@ Accept: application/json
 
 GET {{EkospolTest.Backend_HostAddress}}/api/phone-numbers
 Accept: application/json
+Authorization: Bearer {{login.response.body.$.access_token}}
 
 ###
 
 POST {{EkospolTest.Backend_HostAddress}}/api/phone-numbers
 Content-Type: application/json
+Authorization: Bearer {{login.response.body.$.access_token}}
 
 {
   "number": "+420 123 456 789",
