@@ -8,6 +8,6 @@ namespace EkospolTest.Backend.Models
 
         public bool IsPublic { get; set; }
 
-        public int OwnerId { get; set; }
+        public string OwnerId { get; set; } = string.Empty;
     }
 }

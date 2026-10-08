@@ -10,7 +10,5 @@ namespace EkospolTest.Backend.Dtos
         public string Number { get; set; } = string.Empty;
 
         public bool IsPublic { get; set; }
-
-        public int OwnerId { get; set; }
     }
 }
