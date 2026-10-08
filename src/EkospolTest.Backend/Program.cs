@@ -18,6 +18,14 @@ builder.Services
     .AddJwtBearer(options =>
     {
         options.Authority = keycloakSection["Authority"];
+
+        // Inside Docker the backend reaches Keycloak by its service name, while tokens are issued for localhost.
+        var metadataAddress = keycloakSection["MetadataAddress"];
+        if (!string.IsNullOrEmpty(metadataAddress))
+        {
+            options.MetadataAddress = metadataAddress;
+        }
+
         options.Audience = keycloakSection["Audience"];
         options.RequireHttpsMetadata = keycloakSection.GetValue("RequireHttpsMetadata", true);
         options.MapInboundClaims = false;
@@ -30,6 +38,12 @@ builder.Services.AddAuthorization();
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    dbContext.Database.Migrate();
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

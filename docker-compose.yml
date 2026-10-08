@@ -26,10 +26,48 @@ services:
       KC_BOOTSTRAP_ADMIN_USERNAME: admin
       KC_BOOTSTRAP_ADMIN_PASSWORD: admin
       KC_HEALTH_ENABLED: "true"
+      # Browser-facing URL; tokens are issued for it. Back-channel calls from other
+      # containers (http://keycloak:8080) keep their own host.
+      KC_HOSTNAME: http://localhost:8080
+      KC_HOSTNAME_BACKCHANNEL_DYNAMIC: "true"
     ports:
       - "8080:8080"
     volumes:
       - ./keycloak/ekospol-realm.json:/opt/keycloak/data/import/ekospol-realm.json:ro
+    healthcheck:
+      test: ["CMD-SHELL", "exec 3<>/dev/tcp/127.0.0.1/9000 && printf 'GET /health/ready HTTP/1.1\\r\\nHost: localhost\\r\\nConnection: close\\r\\n\\r\\n' >&3 && grep -q UP <&3"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+      start_period: 10s
+
+  backend:
+    build:
+      context: ./src
+      dockerfile: EkospolTest.Backend/Dockerfile
+    container_name: ekospol-backend
+    restart: unless-stopped
+    environment:
+      ConnectionStrings__DefaultConnection: Host=postgres;Port=5432;Database=ekospol;Username=postgres;Password=postgres
+      Keycloak__Authority: http://localhost:8080/realms/ekospol
+      Keycloak__MetadataAddress: http://keycloak:8080/realms/ekospol/.well-known/openid-configuration
+    ports:
+      - "5274:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      keycloak:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ./src/EkospolTest.Frontend
+    container_name: ekospol-frontend
+    restart: unless-stopped
+    ports:
+      - "4200:80"
+    depends_on:
+      - backend
 
 volumes:
   postgres-data:
