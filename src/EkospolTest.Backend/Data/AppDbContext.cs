@@ -34,6 +34,7 @@ namespace EkospolTest.Backend.Data
 
                 entity.Property(p => p.OwnerId)
                     .HasColumnName("owner_id")
+                    .HasMaxLength(255)
                     .IsRequired();
             });
         }

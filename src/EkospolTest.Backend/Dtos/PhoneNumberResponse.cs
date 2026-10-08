@@ -10,7 +10,7 @@ namespace EkospolTest.Backend.Dtos
 
         public bool IsPublic { get; set; }
 
-        public int OwnerId { get; set; }
+        public string OwnerId { get; set; } = string.Empty;
 
         public static PhoneNumberResponse FromEntity(PhoneNumber phoneNumber) => new()
         {

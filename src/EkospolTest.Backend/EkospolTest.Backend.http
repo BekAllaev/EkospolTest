@@ -26,8 +26,7 @@ Authorization: Bearer {{login.response.body.$.access_token}}
 
 {
   "number": "+420 123 456 789",
-  "isPublic": true,
-  "ownerId": 1
+  "isPublic": true
 }
 
 ###

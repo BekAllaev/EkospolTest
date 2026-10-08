@@ -4,6 +4,7 @@ using EkospolTest.Backend.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace EkospolTest.Backend.Controllers
 {
@@ -36,11 +37,17 @@ namespace EkospolTest.Backend.Controllers
             CreatePhoneNumberRequest request,
             CancellationToken cancellationToken)
         {
+            var ownerId = User.FindFirstValue("sub");
+            if (string.IsNullOrEmpty(ownerId))
+            {
+                return Unauthorized();
+            }
+
             var phoneNumber = new PhoneNumber
             {
                 Number = request.Number.Trim(),
                 IsPublic = request.IsPublic,
-                OwnerId = request.OwnerId
+                OwnerId = ownerId
             };
 
             _dbContext.PhoneNumbers.Add(phoneNumber);
